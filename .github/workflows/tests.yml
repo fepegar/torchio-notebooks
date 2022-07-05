@@ -33,9 +33,14 @@ jobs:
           pip install ipython ipykernel papermill
           ipython kernel install --name "python3" --user
 
-      - name: Run notebooks
-        run: |
-          papermill notebooks/Brain_parcellation_with_TorchIO_and_HighRes3DNet.ipynb /tmp/bp.ipynb
-          papermill notebooks/Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial.ipynb /tmp/dpat.ipynb
-          papermill notebooks/TorchIO_MONAI_PyTorch_Lightning.ipynb /tmp/tmptl.ipynb
-          papermill notebooks/TorchIO_tutorial.ipynb /tmp/tt.ipynb
+      - name: Run quickstart notebook
+        run: papermill notebooks/TorchIO_tutorial.ipynb /tmp/tt.ipynb
+
+      - name: Run brain parcellation notebook
+        run: papermill notebooks/Brain_parcellation_with_TorchIO_and_HighRes3DNet.ipynb /tmp/bp.ipynb
+
+      - name: Run transforms notebook
+        run: papermill notebooks/Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial.ipynb /tmp/dpat.ipynb
+
+      - name: Run frameworks notebook
+        run: papermill notebooks/TorchIO_MONAI_PyTorch_Lightning.ipynb /tmp/tmptl.ipynb
