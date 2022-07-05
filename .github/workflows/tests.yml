@@ -11,6 +11,12 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
+        nb: [
+          {title: quickstart, name: TorchIO_tutorial},
+          {title: "brain parcellation", name: Brain_parcellation_with_TorchIO_and_HighRes3DNet},
+          {title: transforms, name: Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial},
+          {title: frameworks, name: TorchIO_MONAI_PyTorch_Lightning},
+        ]
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
@@ -33,14 +39,5 @@ jobs:
           pip install ipython ipykernel papermill
           ipython kernel install --name "python3" --user
 
-      - name: Run quickstart notebook
-        run: papermill notebooks/TorchIO_tutorial.ipynb /tmp/tt.ipynb
-
-      - name: Run brain parcellation notebook
-        run: papermill notebooks/Brain_parcellation_with_TorchIO_and_HighRes3DNet.ipynb /tmp/bp.ipynb
-
-      - name: Run transforms notebook
-        run: papermill notebooks/Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial.ipynb /tmp/dpat.ipynb
-
-      - name: Run frameworks notebook
-        run: papermill notebooks/TorchIO_MONAI_PyTorch_Lightning.ipynb /tmp/tmptl.ipynb
+      - name: Run ${{ matrix.nb.title }} notebook
+        run: papermill notebooks/${{ matrix.nb.name }}.ipynb /tmp/tt.ipynb
