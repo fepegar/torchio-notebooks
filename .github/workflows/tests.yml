@@ -18,6 +18,19 @@ jobs:
           {title: transforms, name: Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial},
           {title: frameworks, name: TorchIO_MONAI_PyTorch_Lightning},
         ]
+        exclude:
+          - os: macos-latest
+            python-version: '3.7'
+          - os: macos-latest
+            python-version: '3.8'
+          - os: macos-latest
+            python-version: '3.9'
+          - os: windows-latest
+            python-version: '3.7'
+          - os: windows-latest
+            python-version: '3.8'
+          - os: windows-latest
+            python-version: '3.9'
       fail-fast: false
 
     runs-on: ${{ matrix.os }}
