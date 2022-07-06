@@ -54,4 +54,7 @@ jobs:
           ipython kernel install --name "python3" --user
 
       - name: Run ${{ matrix.nb.title }} notebook
-        run: papermill notebooks/${{ matrix.nb.name }}.ipynb ${{ matrix.nb.name }}_output.ipynb
+        run: |
+          IN_PATH=notebooks/${{ matrix.nb.name }}.ipynb
+          OUT_PATH=${{ matrix.nb.name }}_output.ipynb
+          papermill --no-progress-bar --log-output $IN_PATH $OUT_PATH
