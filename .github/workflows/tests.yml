@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         nb: [
-          {title: quickstart, name: TorchIO_tutorial},
+          # {title: quickstart, name: TorchIO_tutorial},
           {title: "brain parcellation", name: Brain_parcellation_with_TorchIO_and_HighRes3DNet},
           {title: transforms, name: Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial},
           {title: frameworks, name: TorchIO_MONAI_PyTorch_Lightning},
