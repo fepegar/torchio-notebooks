@@ -1,0 +1,43 @@
+name: Run notebooks
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  run-notebooks:
+    strategy:
+      matrix:
+        nb: [
+          {title: quickstart, name: TorchIO_tutorial},
+          {title: "brain parcellation", name: Brain_parcellation_with_TorchIO_and_HighRes3DNet},
+          {title: transforms, name: Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial},
+          {title: frameworks, name: TorchIO_MONAI_PyTorch_Lightning},
+        ]
+      fail-fast: false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          pip install ipython ipykernel papermill
+          ipython kernel install --name "python3" --user
+
+      - name: Run ${{ matrix.nb.title }} notebook
+        run: |
+          IN_PATH=notebooks/${{ matrix.nb.name }}.ipynb
+          OUT_PATH=${{ matrix.nb.name }}_output.ipynb
+          papermill --no-progress-bar --log-output $IN_PATH $OUT_PATH
