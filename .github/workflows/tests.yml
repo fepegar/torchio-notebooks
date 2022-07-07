@@ -4,44 +4,27 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 6 * * 1"
 
 jobs:
   run-notebooks:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.7', '3.8', '3.9', '3.10']
         nb: [
           {title: quickstart, name: TorchIO_tutorial},
           {title: "brain parcellation", name: Brain_parcellation_with_TorchIO_and_HighRes3DNet},
           {title: transforms, name: Data_preprocessing_and_augmentation_using_TorchIO_a_tutorial},
           {title: frameworks, name: TorchIO_MONAI_PyTorch_Lightning},
         ]
-        exclude:
-          - os: macos-latest
-            python-version: '3.7'
-          - os: macos-latest
-            python-version: '3.8'
-          - os: macos-latest
-            python-version: '3.9'
-          - os: windows-latest
-            python-version: '3.7'
-          - os: windows-latest
-            python-version: '3.8'
-          - os: windows-latest
-            python-version: '3.9'
       fail-fast: false
 
-    runs-on: ${{ matrix.os }}
-    env:
-      OS: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     steps:
       - name: Set up python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.10"
 
       - name: Checkout repository
         uses: actions/checkout@v2
