@@ -39,7 +39,7 @@ jobs:
       - name: Decrease RAM usage
         run: |
           PARC_NB="notebooks/Brain_parcellation_with_TorchIO_and_HighRes3DNet.ipynb"
-          sed 's/tio.Crop((0, 0, 10, 30, 40, 40))/tio.Crop((40, 40, 50, 70, 80, 80))/g' $PARC_NB
+          sed 's/tio.Crop((0, 0, 10, 30, 40, 40))/tio.Crop((60, 60, 90, 110, 100, 100))/g' $PARC_NB
           sed 's/patch_size = 128/patch_size = 32/g' $PARC_NB
 
       - name: Run ${{ matrix.nb.title }} notebook
