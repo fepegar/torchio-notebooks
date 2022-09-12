@@ -36,6 +36,12 @@ jobs:
           pip install ipython ipykernel papermill
           ipython kernel install --name "python3" --user
 
+      - name: Decrease RAM usage
+        run: |
+          PARC_NB="notebooks/Brain_parcellation_with_TorchIO_and_HighRes3DNet.ipynb"
+          sed -i '' 's/tio.Crop((0, 0, 10, 30, 40, 40))/tio.Crop((40, 40, 50, 70, 80, 80))/g' $PARC_NB
+          sed -i '' 's/patch_size = 128/patch_size = 32/g' $PARC_NB
+
       - name: Run ${{ matrix.nb.title }} notebook
         run: |
           IN_PATH=notebooks/${{ matrix.nb.name }}.ipynb
