@@ -2,7 +2,9 @@ name: Run notebooks
 
 on:
   push:
+    branches: [main]
   pull_request:
+    branches: [main]
   schedule:
     - cron: "0 6 * * 1"
 
@@ -46,4 +48,7 @@ jobs:
         run: |
           IN_PATH=notebooks/${{ matrix.nb.name }}.ipynb
           OUT_PATH=${{ matrix.nb.name }}_output.ipynb
-          papermill --no-progress-bar --log-output $IN_PATH $OUT_PATH
+          papermill \
+            --no-progress-bar \
+            --log-output \
+            $IN_PATH $OUT_PATH
